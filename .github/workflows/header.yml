@@ -1,0 +1,41 @@
+name: Redraw header
+
+# Once a day, redraw the line in the profile header from the last six months
+# of contribution counts and publish it to the `output` branch, which is what
+# the README points at. Nothing is committed to main.
+
+on:
+  schedule:
+    - cron: "23 7 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [build.py, fetch.sh, .github/workflows/header.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  redraw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch contribution counts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: ./fetch.sh "${{ github.repository_owner }}"
+      - name: Draw
+        run: python3 build.py
+      - name: Publish to the output branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir out
+          cp assets/header-dark.svg assets/header-light.svg out/
+          cd out
+          git init -q -b output
+          git config user.name "Lakshya Vasudeva"
+          git config user.email "lakyvasu08@gmail.com"
+          git add .
+          git commit -q -m "Redraw header"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" output

@@ -7,6 +7,7 @@ Every image is written twice, for GitHub's light and dark themes; the README
 picks one with <picture> and prefers-color-scheme. To change a card, edit
 CARDS below and run this again.
 """
+import json
 import math
 import os
 import random
@@ -89,23 +90,56 @@ def trace(width, mid, seed=7):
     return d, width - 14
 
 
+DAYS = 182      # how much history the header line covers
+DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "contributions.json")
+
+
+def activity(width, base, height):
+    """The header line drawn from real data: one point per day, height from
+    that day's contribution count. Returns None when there is no data file
+    (run fetch.sh to make one), and the decorative trace is used instead."""
+    if not os.path.exists(DATA):
+        return None
+    with open(DATA) as f:
+        counts = [d["count"] for d in json.load(f)][-DAYS:]
+    if len(counts) < 2 or max(counts) == 0:
+        return None
+    # Square-root scale, clipped at the 90th percentile, so a few huge days
+    # do not flatten all the others.
+    busy = sorted(n for n in counts if n > 0)
+    top = math.sqrt(busy[int(len(busy) * 0.9)])
+    ys = [base - min(1.0, math.sqrt(n) / top) * height for n in counts]
+    end_x = width - 14
+    step = end_x / (len(counts) - 1)
+    pts = ["%.1f %.1f" % (i * step, y) for i, y in enumerate(ys)]
+    return "M" + " L".join(pts), end_x, ys[-1]
+
+
 def header(theme):
     c = THEMES[theme]
-    w, h = 840, 232
-    mid = 208
-    d, end_x = trace(w, mid)
+    w, h = 840, 262
+    mid = 232
+    real = activity(w, mid, 50)
+    if real:
+        d, end_x, end_y = real
+        caption = f'<text class="cap rise" x="2" y="{h - 6}" style="animation-delay:.6s">my commits per day, last 6 months</text>'
+    else:
+        d, end_x = trace(w, mid - 10)
+        end_y = mid - 10
+        caption = ""
     return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" role="img" aria-label="Lakshya Vasudeva. Started coding at 7 and teaching at 8. Interned at Zebra Technologies, worked with Interac, researched at Harvard. Now building Origin, a wearable to talk to your AI agents telepathically.">
   <style>
     .name {{ font: 600 54px {SANS}; letter-spacing: -1.6px; fill: {c['text']}; }}
     .bio {{ font: 400 17px {SANS}; fill: {c['soft']}; }}
     .bio tspan {{ fill: {c['text']}; }}
-    .trace {{ fill: none; stroke: {c['accent']}; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round;
-             stroke-dasharray: 3400; animation: draw 3.2s cubic-bezier(.3,.1,.2,1) .2s backwards; }}
+    .cap {{ font: 400 11px {MONO}; letter-spacing: 0.3px; fill: {c['soft']}; }}
+    .trace {{ fill: none; stroke: {c['accent']}; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round;
+             stroke-dasharray: 6000; animation: draw 3.2s cubic-bezier(.3,.1,.2,1) .2s backwards; }}
     .rise {{ animation: rise .9s ease-out backwards; }}
     .dot {{ fill: {c['accent']}; animation: show .3s linear 3.3s backwards, pulse 1.8s ease-in-out 3.6s infinite; }}
     /* Everything rests in its final state, so a renderer that does not
        animate still shows the finished picture. */
-    @keyframes draw {{ from {{ stroke-dashoffset: 3400; }} to {{ stroke-dashoffset: 0; }} }}
+    @keyframes draw {{ from {{ stroke-dashoffset: 6000; }} to {{ stroke-dashoffset: 0; }} }}
     @keyframes rise {{ from {{ opacity: 0; transform: translateY(8px); }} }}
     @keyframes show {{ from {{ opacity: 0; }} }}
     @keyframes pulse {{ 0%, 100% {{ opacity: 1; }} 50% {{ opacity: .25; }} }}
@@ -116,9 +150,10 @@ def header(theme):
   <text class="name rise" x="0" y="58">Lakshya Vasudeva</text>
   <text class="bio rise" x="2" y="100" style="animation-delay:.2s">Started coding at 7 and teaching at 8.</text>
   <text class="bio rise" x="2" y="127" style="animation-delay:.35s">Interned at <tspan>Zebra Technologies</tspan>, worked with <tspan>Interac</tspan>, researched at <tspan>Harvard</tspan>.</text>
-  <text class="bio rise" x="2" y="154" style="animation-delay:.5s">Now building <tspan>Origin</tspan> — a wearable to talk to your AI agents telepathically.</text>
+  <text class="bio rise" x="2" y="154" style="animation-delay:.5s">Now building <tspan>Origin</tspan> -- a wearable to talk to your AI agents telepathically.</text>
   <path class="trace" d="{d}"/>
-  <circle class="dot" cx="{end_x + 6:.1f}" cy="{mid}" r="3.2"/>
+  <circle class="dot" cx="{end_x + 6:.1f}" cy="{end_y:.1f}" r="3.2"/>
+  {caption}
 </svg>
 """
 
