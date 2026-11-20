@@ -1,6 +1,6 @@
 <div align="center">
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg"><img src="assets/header-light.svg" alt="Lakshya Vasudeva. Started coding at 7 and teaching at 8. Interned at Zebra Technologies, worked with Interac, researched at Harvard. Now building Origin." width="100%"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg"><img src="assets/header-light.svg" alt="Lakshya Vasudeva. Started coding at 7 and teaching at 8. Interned at Zebra Technologies, worked with Interac, researched at Harvard. Now building Origin, a wearable to talk to your AI agents telepathically." width="100%"></picture>
 
 </div>
 

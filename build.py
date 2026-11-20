@@ -94,7 +94,7 @@ def header(theme):
     w, h = 840, 232
     mid = 208
     d, end_x = trace(w, mid)
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" role="img" aria-label="Lakshya Vasudeva. Started coding at 7 and teaching at 8. Interned at Zebra Technologies, worked with Interac, researched at Harvard. Now building Origin.">
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" role="img" aria-label="Lakshya Vasudeva. Started coding at 7 and teaching at 8. Interned at Zebra Technologies, worked with Interac, researched at Harvard. Now building Origin, a wearable to talk to your AI agents telepathically.">
   <style>
     .name {{ font: 600 54px {SANS}; letter-spacing: -1.6px; fill: {c['text']}; }}
     .bio {{ font: 400 17px {SANS}; fill: {c['soft']}; }}
@@ -116,7 +116,7 @@ def header(theme):
   <text class="name rise" x="0" y="58">Lakshya Vasudeva</text>
   <text class="bio rise" x="2" y="100" style="animation-delay:.2s">Started coding at 7 and teaching at 8.</text>
   <text class="bio rise" x="2" y="127" style="animation-delay:.35s">Interned at <tspan>Zebra Technologies</tspan>, worked with <tspan>Interac</tspan>, researched at <tspan>Harvard</tspan>.</text>
-  <text class="bio rise" x="2" y="154" style="animation-delay:.5s">Now building <tspan>Origin</tspan>.</text>
+  <text class="bio rise" x="2" y="154" style="animation-delay:.5s">Now building <tspan>Origin</tspan> — a wearable to talk to your AI agents telepathically.</text>
   <path class="trace" d="{d}"/>
   <circle class="dot" cx="{end_x + 6:.1f}" cy="{mid}" r="3.2"/>
 </svg>
