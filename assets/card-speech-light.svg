@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 178" width="412" height="178" role="img" aria-label="silent-speech-jaw">
+  <style>
+    .kind { font: 500 10.5px ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; letter-spacing: 1.3px; text-transform: uppercase; fill: #cf4a1c; }
+    .title { font: 600 17px -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; letter-spacing: -0.2px; fill: #1f2328; }
+    .body { font: 400 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; fill: #59636e; }
+    .tags { font: 400 11px ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; fill: #59636e; }
+    .arrow { font: 400 15px -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; fill: #59636e; }
+  </style>
+  <rect x="0.5" y="0.5" width="411" height="177" rx="10" fill="#ffffff" stroke="#d1d9e0"/>
+  <text class="kind" x="22" y="32">wearables</text>
+  <text class="arrow" x="390" y="33" text-anchor="end">↗</text>
+  <text class="title" x="22" y="59">silent-speech-jaw</text>
+  <text class="body" x="22" y="86">Mouth a sentence without a sound. Two IMUs on the</text><text class="body" x="22" y="105">jaw, a phoneme recogniser and a local LLM turn the</text><text class="body" x="22" y="124">movement into text, down to an Arduino.</text>
+  <line x1="22" y1="142" x2="390" y2="142" stroke="#d1d9e0" stroke-dasharray="1 4" stroke-linecap="round"/>
+  <text class="tags" x="22" y="162">Python / ONNX / Arduino</text>
+</svg>
