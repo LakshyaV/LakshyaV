@@ -56,8 +56,7 @@ CARDS = [
 
 
 def trace(width, mid, seed=7):
-    """One line that starts as a noisy biosignal, settles into a square wave
-    and ends flat: signal becoming structure."""
+    """A decorative line: a noisy wave that settles into steps and then flat."""
     rng = random.Random(seed)
     pts = []
     x = 0.0
@@ -92,20 +91,18 @@ def trace(width, mid, seed=7):
 
 def header(theme):
     c = THEMES[theme]
-    w, h = 840, 250
-    d, end_x = trace(w, 204)
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" role="img" aria-label="Lakshya Vasudeva. 18. building origin. research at harvard.">
+    w, h = 840, 232
+    mid = 208
+    d, end_x = trace(w, mid)
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" role="img" aria-label="Lakshya Vasudeva. Started coding at 7 and teaching at 8. Interned at Zebra Technologies, worked with Interac, researched at Harvard. Now building Origin.">
   <style>
     .name {{ font: 600 54px {SANS}; letter-spacing: -1.6px; fill: {c['text']}; }}
     .bio {{ font: 400 17px {SANS}; fill: {c['soft']}; }}
     .bio tspan {{ fill: {c['text']}; }}
-    .mono {{ font: 400 12px {MONO}; letter-spacing: 0.4px; fill: {c['soft']}; }}
-    .mono .on {{ fill: {c['accent']}; }}
     .trace {{ fill: none; stroke: {c['accent']}; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round;
              stroke-dasharray: 3400; animation: draw 3.2s cubic-bezier(.3,.1,.2,1) .2s backwards; }}
     .rise {{ animation: rise .9s ease-out backwards; }}
     .dot {{ fill: {c['accent']}; animation: show .3s linear 3.3s backwards, pulse 1.8s ease-in-out 3.6s infinite; }}
-    .label {{ animation: show .8s ease-out 2.4s backwards; }}
     /* Everything rests in its final state, so a renderer that does not
        animate still shows the finished picture. */
     @keyframes draw {{ from {{ stroke-dashoffset: 3400; }} to {{ stroke-dashoffset: 0; }} }}
@@ -113,19 +110,15 @@ def header(theme):
     @keyframes show {{ from {{ opacity: 0; }} }}
     @keyframes pulse {{ 0%, 100% {{ opacity: 1; }} 50% {{ opacity: .25; }} }}
     @media (prefers-reduced-motion: reduce) {{
-      .trace, .rise, .dot, .label {{ animation: none; }}
+      .trace, .rise, .dot {{ animation: none; }}
     }}
   </style>
-  <text class="mono rise" x="2" y="26">curiosity <tspan class="on">→</tspan> systems <tspan class="on">→</tspan> intelligence <tspan class="on">→</tspan> humans <tspan class="on">→</tspan> interfaces</text>
-  <text class="name rise" x="0" y="98" style="animation-delay:.15s">Lakshya Vasudeva</text>
-  <text class="bio rise" x="2" y="136" style="animation-delay:.35s">18. building <tspan>origin</tspan>. research @ <tspan>harvard</tspan>.</text>
+  <text class="name rise" x="0" y="58">Lakshya Vasudeva</text>
+  <text class="bio rise" x="2" y="100" style="animation-delay:.2s">Started coding at 7 and teaching at 8.</text>
+  <text class="bio rise" x="2" y="127" style="animation-delay:.35s">Interned at <tspan>Zebra Technologies</tspan>, worked with <tspan>Interac</tspan>, researched at <tspan>Harvard</tspan>.</text>
+  <text class="bio rise" x="2" y="154" style="animation-delay:.5s">Now building <tspan>Origin</tspan>.</text>
   <path class="trace" d="{d}"/>
-  <circle class="dot" cx="{end_x + 6:.1f}" cy="204" r="3.2"/>
-  <g class="mono label">
-    <text x="2" y="244">signal</text>
-    <text x="{w * 0.46 + 4:.0f}" y="244">bits</text>
-    <text x="{w - 14}" y="244" text-anchor="end">structure</text>
-  </g>
+  <circle class="dot" cx="{end_x + 6:.1f}" cy="{mid}" r="3.2"/>
 </svg>
 """
 

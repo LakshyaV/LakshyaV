@@ -1,6 +1,6 @@
 <div align="center">
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg"><img src="assets/header-light.svg" alt="Lakshya Vasudeva. 18. building origin. research @ harvard." width="100%"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg"><img src="assets/header-light.svg" alt="Lakshya Vasudeva. Started coding at 7 and teaching at 8. Interned at Zebra Technologies, worked with Interac, researched at Harvard. Now building Origin." width="100%"></picture>
 
 </div>
 
@@ -10,6 +10,8 @@
   <a href="https://www.linkedin.com/in/lakshyav/">linkedin</a>
   &nbsp;·&nbsp;
   <a href="https://github.com/LakshyaV?tab=repositories">everything else</a>
+  &nbsp;·&nbsp;
+  <img src="https://komarev.com/ghpvc/?username=LakshyaV&label=profile+views&color=ff7b54&style=flat" alt="profile views" valign="middle">
 </p>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/rule-dark.svg"><img src="assets/rule-light.svg" alt="" width="100%"></picture>
